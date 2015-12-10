@@ -143,17 +143,17 @@ def main():
     glBindBuffer(GL_ARRAY_BUFFER, 0)
     glBindVertexArray(0)
 
+    mainLoop(shaderProgram, VAO, window)
+
+    print ("time to shutdown")
+    glfw.terminate()
+
+def mainLoop(shaderProgram, VAO, window):
 
     # Loop until the user closes the window
     while not glfw.window_should_close(window):
-
-
-
-
-
         glClearColor(0, 0, 0, 1)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-
 
         glUseProgram(shaderProgram)
         glBindVertexArray(VAO)
@@ -164,18 +164,12 @@ def main():
         glBindVertexArray(0)
         glUseProgram(0)
 
-
-
         # Swap front and back buffers
         glfw.swap_buffers(window)
 
         # Poll for and process events
-
         glfw.poll_events()
 
-
-    print ("time to shutdown")
-    glfw.terminate()
 
 if __name__ == '__main__':
     main()
