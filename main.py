@@ -88,6 +88,7 @@ def main():
 
     global shaderProgram
     global VAO
+    global window
 
     version_string = glfw.get_version_string();
     print ("Starting GLFW")
@@ -143,12 +144,22 @@ def main():
     glBindBuffer(GL_ARRAY_BUFFER, 0)
     glBindVertexArray(0)
 
-    mainLoop(shaderProgram, VAO, window)
+
+    objectToRender = { "VAO" : VAO, "VertexCount" : 3, "ShaderProgram" : shaderProgram}
+
+    mainLoop(objectToRender)
 
     print ("time to shutdown")
     glfw.terminate()
 
-def mainLoop(shaderProgram, VAO, window):
+
+
+
+def mainLoop(mainLoopObject):
+    global window
+    VAO = mainLoopObject["VAO"]
+    VertexCount = mainLoopObject["VertexCount"]
+    shaderProgram = mainLoopObject["ShaderProgram"]
 
     # Loop until the user closes the window
     while not glfw.window_should_close(window):
@@ -169,6 +180,9 @@ def mainLoop(shaderProgram, VAO, window):
 
         # Poll for and process events
         glfw.poll_events()
+
+
+
 
 
 if __name__ == '__main__':

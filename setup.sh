@@ -1,3 +1,3 @@
 #!/bin/sh
 
-pip install numpy pyopengl pyglfw
+pip install numpy pyopengl pyglfw glfw
