@@ -30,11 +30,12 @@ render a color triangle with pyopengl using glfw.
 
 import ctypes
 
+import sys
 import numpy
 from OpenGL.GL import *
 from OpenGL.GL import shaders
 import glfw
-
+import os
 
 VERTEX_SHADER = """
 #version 330
@@ -63,59 +64,51 @@ void main()
 }
 """
 
-shaderProgram = None
-VAO = None
 
+def loadTMF(filePath):
+    file = open(filePath)
+    print file.read()
 
-def initialize():
-    global VERTEX_SHADER
-    global FRAGMENT_SHADER
-    global shaderProgram
-    global VAO
 
 def compileShader(vertexShader, fragmentShader):
     # compile shaders and program
     v = vertexShader
     f = fragmentShader
-    print(v)
-    print(f)
     vs = shaders.compileShader(v, GL_VERTEX_SHADER)
     fs = shaders.compileShader(f, GL_FRAGMENT_SHADER)
     shaderProgram = shaders.compileProgram(vs, fs)
     return shaderProgram
 
-def main():
-
-    global shaderProgram
-    global VAO
-    global window
-
-    version_string = glfw.get_version_string();
-    print ("Starting GLFW")
-    print (version_string)
-    # Initialize the library
-    if not glfw.init():
-        print("fail glfw")
-        return
-
-    # make a window
-    # glfw.window_hint(glfw.OPENGL_PROFILE, glfw.OPENGL_CORE_PROFILE)
-    glfw.window_hint(glfw.VERSION_MAJOR, 4)
-    glfw.window_hint(glfw.VERSION_MINOR, 3)
-
+def createWindow():
     # Create a windowed mode window and its OpenGL context
     window = glfw.create_window(640, 480, "Hello World", None, None)
     if not window:
         glfw.terminate()
         print("fail Window")
         return
-
-
-
     # Make the window's context current
     glfw.make_context_current(window)
-    # triangle position and color
-    shaderProgram = compileShader(VERTEX_SHADER, FRAGMENT_SHADER)
+    return window
+
+def init():
+    version_string = glfw.get_version_string();
+    cwd = os.getcwd()
+    print ("Starting GLFW")
+    print (version_string)
+    # Initialize the library
+    if not glfw.init():
+        print("fail glfw")
+        return
+    os.chdir(cwd)
+    # make a window
+    # glfw.window_hint(glfw.OPENGL_PROFILE, glfw.OPENGL_CORE_PROFILE)
+    glfw.window_hint(glfw.CONTEXT_VERSION_MAJOR, 3)
+    glfw.window_hint(glfw.CONTEXT_VERSION_MINOR, 3)
+    glfw.window_hint(glfw.OPENGL_FORWARD_COMPAT, GL_TRUE)
+    glfw.window_hint(glfw.OPENGL_PROFILE, glfw.OPENGL_CORE_PROFILE)
+
+
+def createVAO():
     vertexData = numpy.array([0.0, 0.5, 0.0, 1.0,
                             0.5, -0.366, 0.0, 1.0,
                             -0.5, -0.366, 0.0, 1.0,
@@ -144,19 +137,25 @@ def main():
     glBindBuffer(GL_ARRAY_BUFFER, 0)
     glBindVertexArray(0)
 
+    return VAO, 3
 
-    objectToRender = { "VAO" : VAO, "VertexCount" : 3, "ShaderProgram" : shaderProgram}
 
-    mainLoop(objectToRender)
+def main():
+    init()
+    window = createWindow()
+    # triangle position and color
 
-    print ("time to shutdown")
+    loadTMF("testData.tmf")
+
+    shaderProgram = compileShader(VERTEX_SHADER, FRAGMENT_SHADER)
+    VAO,  VertexSize = createVAO()
+
+    objectToRender = { "VAO" : VAO, "VertexCount" : VertexSize, "ShaderProgram" : shaderProgram}
+
+    mainLoop(objectToRender,window)
     glfw.terminate()
 
-
-
-
-def mainLoop(mainLoopObject):
-    global window
+def mainLoop(mainLoopObject, window):
     VAO = mainLoopObject["VAO"]
     VertexCount = mainLoopObject["VertexCount"]
     shaderProgram = mainLoopObject["ShaderProgram"]
@@ -170,7 +169,7 @@ def mainLoop(mainLoopObject):
         glBindVertexArray(VAO)
 
         # draw triangle
-        glDrawArrays(GL_TRIANGLES, 0, 3)
+        glDrawArrays(GL_TRIANGLES, 0, VertexCount)
 
         glBindVertexArray(0)
         glUseProgram(0)
@@ -180,10 +179,6 @@ def mainLoop(mainLoopObject):
 
         # Poll for and process events
         glfw.poll_events()
-
-
-
-
 
 if __name__ == '__main__':
     main()
