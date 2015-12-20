@@ -105,15 +105,11 @@ def init():
     glfw.window_hint(glfw.OPENGL_PROFILE, glfw.OPENGL_CORE_PROFILE)
 
 
-def createVAO():
-    vertexData = numpy.array([0.0, 0.5, 0.0, 1.0,
-                            0.5, -0.366, 0.0, 1.0,
-                            -0.5, -0.366, 0.0, 1.0,
-                            1.0, 0.0, 0.0, 1.0,
-                            0.0, 1.0, 0.0, 1.0,
-                            0.0, 0.0, 1.0, 1.0, ],
-                            dtype=numpy.float32)
-
+def createVAO(vertexPos, vertexColor):
+    
+    
+    vertexData2 = numpy.array(vertexPos+vertexColor, dtype=numpy.float32)
+    # Append data arrays for glBufferData
     # create VAO
     VAO = glGenVertexArrays(1)
     glBindVertexArray(VAO)
@@ -121,7 +117,7 @@ def createVAO():
     # create VBO
     VBO = glGenBuffers(1)
     glBindBuffer(GL_ARRAY_BUFFER, VBO)
-    glBufferData(GL_ARRAY_BUFFER, vertexData.nbytes, vertexData, GL_STATIC_DRAW)
+    glBufferData(GL_ARRAY_BUFFER, vertexData2.nbytes, vertexData2, GL_STATIC_DRAW)
 
     # enable array and set up data
     glEnableVertexAttribArray(0)
@@ -141,9 +137,14 @@ def main():
     # triangle position and color
 
     loadTMF("testData.tmf")
-
+    stuff = [0.0, 0.5, 0.0, 1.0, 
+		0.5, -0.366, 0.0, 1.0,
+	         -0.5, -0.366, 0.0, 1.0]
+    stuff2 = [1.0, 0.0, 0.0, 1.0,
+		0.0, 1.0, 0.0, 1.0,
+		0.0, 0.0, 1.0, 1.0,]
+    VAO, VertexSize = createVAO(stuff, stuff2)
     shaderProgram = compileShader(VERTEX_SHADER, FRAGMENT_SHADER)
-    VAO,  VertexSize = createVAO()
 
     objectToRender = { "VAO" : VAO, "VertexCount" : VertexSize, "ShaderProgram" : shaderProgram}
 
