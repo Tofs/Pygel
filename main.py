@@ -65,9 +65,6 @@ void main()
 """
 
 
-def loadTMF(filePath):
-    file = open(filePath)
-    print file.read()
 
 
 def compileShader(vertexShader, fragmentShader):
@@ -134,8 +131,6 @@ def createVAO():
     # python donot have pointer, have to using ctypes
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, ctypes.c_void_p(48))
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0)
-    glBindVertexArray(0)
 
     return VAO, 3
 
