@@ -107,8 +107,6 @@ def init():
 
 
 def createVAO(vertexPos, vertexColor):
-
-
     vertexData2 = numpy.array(vertexPos+vertexColor, dtype=numpy.float32)
     # Append data arrays for glBufferData
     # create VAO
@@ -137,14 +135,16 @@ def main():
     window = createWindow()
     # triangle position and color
 
-    tmf.load("testData.tmf")
+    vertexPos, vertexColor, triangle = tmf.load("testData.tmf")
     stuff = [0.0, 0.5, 0.0, 1.0,
 		0.5, -0.366, 0.0, 1.0,
 	         -0.5, -0.366, 0.0, 1.0]
     stuff2 = [1.0, 0.0, 0.0, 1.0,
 		0.0, 1.0, 0.0, 1.0,
 		0.0, 0.0, 1.0, 1.0,]
-    VAO, VertexSize = createVAO(stuff, stuff2)
+
+    print vertexPos
+    VAO, VertexSize = createVAO(vertexPos, vertexColor)
     shaderProgram = compileShader(VERTEX_SHADER, FRAGMENT_SHADER)
 
     objectToRender = { "VAO" : VAO, "VertexCount" : VertexSize, "ShaderProgram" : shaderProgram}
