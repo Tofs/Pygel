@@ -6,7 +6,7 @@ def isNotComment(element):
 
 
 
-def loadTMF(filePath):
+def load(filePath):
     file = open(filePath)
 
     fileContent = file.readlines()
@@ -27,8 +27,6 @@ def loadTMF(filePath):
         filterContent.pop()
 
     #vertex pos
-
-
 
 
 if __name__ == "__main__":

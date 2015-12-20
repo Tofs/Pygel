@@ -36,6 +36,7 @@ from OpenGL.GL import *
 from OpenGL.GL import shaders
 import glfw
 import os
+import tmf
 
 VERTEX_SHADER = """
 #version 330
@@ -106,8 +107,8 @@ def init():
 
 
 def createVAO(vertexPos, vertexColor):
-    
-    
+
+
     vertexData2 = numpy.array(vertexPos+vertexColor, dtype=numpy.float32)
     # Append data arrays for glBufferData
     # create VAO
@@ -136,8 +137,8 @@ def main():
     window = createWindow()
     # triangle position and color
 
-    loadTMF("testData.tmf")
-    stuff = [0.0, 0.5, 0.0, 1.0, 
+    tmf.load("testData.tmf")
+    stuff = [0.0, 0.5, 0.0, 1.0,
 		0.5, -0.366, 0.0, 1.0,
 	         -0.5, -0.366, 0.0, 1.0]
     stuff2 = [1.0, 0.0, 0.0, 1.0,
