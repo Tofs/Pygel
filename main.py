@@ -42,12 +42,6 @@ def main():
     # triangle position and color
 
     vertexPos, vertexColor, triangle = tmf.load("testData.tmf")
-    stuff = [0.0, 0.5, 0.0, 1.0,
-		0.5, -0.366, 0.0, 1.0,
-	         -0.5, -0.366, 0.0, 1.0]
-    stuff2 = [1.0, 0.0, 0.0, 1.0,
-		0.0, 1.0, 0.0, 1.0,
-		0.0, 0.0, 1.0, 1.0,]
 
     print vertexPos
     VAO, VertexSize = Utils.createVAO(vertexPos, vertexColor)

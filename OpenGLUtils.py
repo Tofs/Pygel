@@ -47,24 +47,24 @@ def init():
 
 
 def createVAO(vertexPos, vertexColor):
-    vertexData2 = numpy.array(vertexPos+vertexColor, dtype=numpy.float32)
+    vertexData = numpy.array(vertexPos+vertexColor, dtype=numpy.float32)
     # Append data arrays for glBufferData
     # create VAO
+    vertexCount = len(vertexPos)/4
     VAO = glGenVertexArrays(1)
     glBindVertexArray(VAO)
 
     # create VBO
     VBO = glGenBuffers(1)
     glBindBuffer(GL_ARRAY_BUFFER, VBO)
-    glBufferData(GL_ARRAY_BUFFER, vertexData2.nbytes, vertexData2, GL_STATIC_DRAW)
+    glBufferData(GL_ARRAY_BUFFER, vertexData.nbytes, vertexData, GL_STATIC_DRAW)
 
     # enable array and set up data
     glEnableVertexAttribArray(0)
     glEnableVertexAttribArray(1)
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, None)
-    # the last parameter is a pointer
+    # the last parameter is a pointer to tell the offset between
     # python donot have pointer, have to using ctypes
-    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, ctypes.c_void_p(48))
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, ctypes.c_void_p(vertexCount * 16))
 
-
-    return VAO, 3
+    return VAO, vertexCount
