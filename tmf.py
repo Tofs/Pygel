@@ -4,9 +4,6 @@ from collections import deque
 def isNotComment(element):
     return not element.startswith('%')
 
-
-
-
 def load(filePath):
     file = open(filePath)
 
