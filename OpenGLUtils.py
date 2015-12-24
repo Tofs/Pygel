@@ -8,6 +8,16 @@ import glfw
 import os
 import tmf
 
+
+def compileShaderFromFile(vertexFilePath, fragmenFilePath):
+    vertexFile = open(vertexFilePath)
+    fragmentFile = open(fragmenFilePath)
+
+    vertexString = vertexFile.read()
+    fragmentString = fragmentFile.read()
+
+    return compileShader(vertexString, fragmentString)
+
 def compileShader(vertexShader, fragmentShader):
     # compile shaders and program
     v = vertexShader

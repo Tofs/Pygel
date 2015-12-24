@@ -1,5 +1,3 @@
-
-
 import sys
 import tmf
 import OpenGLUtils as Utils
@@ -15,7 +13,7 @@ def main():
 
     print vertexPos
     VAO, VertexSize = Utils.createVAO(vertexPos, vertexColor)
-    shaderProgram = Utils.compileShader(VERTEX_SHADER, FRAGMENT_SHADER)
+    shaderProgram = Utils.compileShaderFromFile("shaders/basic.vert", "shaders/basic.frag")
 
     objectToRender = { "VAO" : VAO, "VertexCount" : VertexSize, "ShaderProgram" : shaderProgram}
 
