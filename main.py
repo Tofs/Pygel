@@ -4,6 +4,8 @@ import OpenGLUtils as Utils
 import glfw
 from OpenGL.GL import *
 
+
+
 def main():
     Utils.init()
     window = Utils.createWindow()
