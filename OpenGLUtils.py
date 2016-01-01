@@ -36,21 +36,19 @@ def init():
     glfw.window_hint(glfw.OPENGL_PROFILE, glfw.OPENGL_CORE_PROFILE)
 
 
-def createVAO(vertexPos, vertexColor):
+def createVAO(vertexPos, vertexColor, size = 3, singleBuffer = False):
+    if singleBuffer:
+        return  singleVAO(vertexPos, vertexColor, size)
+    else:
+        return multiVAO(vertexPos, vertexColor, size)
+
+def singleVAO(vertexPos, vertexColor, size):
     vertexData = numpy.array(vertexPos+vertexColor, dtype=numpy.float32)
     # Append data arrays for glBufferData
     # create VAO
     vertexCount = len(vertexPos)/4
     VAO = glGenVertexArrays(1)
     glBindVertexArray(VAO)
-
-    #GLuint elementbuffer;
-    #glGenBuffers(1, &elementbuffer);
-    #glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
-    #glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
-
-
-
 
     # create VBO
     VBO = glGenBuffers(1)
@@ -67,25 +65,34 @@ def createVAO(vertexPos, vertexColor):
 
     return VAO, vertexCount
 
-def createVAO(vertexPos, vertexColor):
-    vertexData = numpy.array(vertexPos+vertexColor, dtype=numpy.float32)
-    # Append data arrays for glBufferData
+def multiVAO(vertexPos, vertexColor, size):
+    numPos = numpy.array(vertexPos, dtype=numpy.float32)
+    numColor = numpy.array(vertexColor, dtype=numpy.float32)
+
     # create VAO
     vertexCount = len(vertexPos)/4
     VAO = glGenVertexArrays(1)
     glBindVertexArray(VAO)
 
-    # create VBO
-    VBO = glGenBuffers(1)
-    glBindBuffer(GL_ARRAY_BUFFER, VBO)
-    glBufferData(GL_ARRAY_BUFFER, vertexData.nbytes, vertexData, GL_STATIC_DRAW)
+    # create pos VBO
+    pos = glGenBuffers(1)
+    glBindBuffer(GL_ARRAY_BUFFER, pos)
+    glBufferData(GL_ARRAY_BUFFER, numPos.nbytes, numPos, GL_STATIC_DRAW)
+
+    # create color VBO
+    color = glGenBuffers(1)
+    glBindBuffer(GL_ARRAY_BUFFER, color)
+    glBufferData(GL_ARRAY_BUFFER, numColor.nbytes, numColor, GL_STATIC_DRAW)
 
     # enable array and set up data
     glEnableVertexAttribArray(0)
     glEnableVertexAttribArray(1)
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, None)
+    glBindBuffer(GL_ARRAY_BUFFER, pos)
+    glVertexAttribPointer(0, size, GL_FLOAT, GL_FALSE, 0, None)
     # the last parameter is a pointer to tell the offset between
     # python donot have pointer, have to using ctypes
-    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, ctypes.c_void_p(vertexCount * 16))
+    glBindBuffer(GL_ARRAY_BUFFER, color)
+    glVertexAttribPointer(1, size, GL_FLOAT, GL_FALSE, 0, None)
+
 
     return VAO, vertexCount
