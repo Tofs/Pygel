@@ -3,30 +3,9 @@ import ctypes
 import sys
 import numpy
 from OpenGL.GL import *
-from OpenGL.GL import shaders
 import glfw
 import os
 import tmf
-
-def compileShaderFromFile(vertexFilePath, fragmenFilePath):
-    #load files into memory
-    vertexFile = open(vertexFilePath)
-    fragmentFile = open(fragmenFilePath)
-
-    vertexString = vertexFile.read()
-    fragmentString = fragmentFile.read()
-
-    return compileShader(vertexString, fragmentString)
-
-def compileShader(vertexShader, fragmentShader):
-    # compile shaders and program
-    v = vertexShader
-    f = fragmentShader
-    vs = shaders.compileShader(v, GL_VERTEX_SHADER)
-    fs = shaders.compileShader(f, GL_FRAGMENT_SHADER)
-    shaderProgram = shaders.compileProgram(vs, fs)
-
-    return shaderProgram
 
 def createWindow():
     # Create a windowed mode window and its OpenGL context

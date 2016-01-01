@@ -3,6 +3,7 @@ import tmf
 import OpenGLUtils as Utils
 import glfw
 from OpenGL.GL import *
+import ShaderManager as ShaderM
 
 
 
@@ -15,7 +16,7 @@ def main():
 
     print vertexPos
     VAO, VertexSize = Utils.createVAO(vertexPos, vertexColor)
-    shaderProgram = Utils.compileShaderFromFile("shaders/basic.vert", "shaders/basic.frag")
+    shaderProgram = ShaderM.compileShaderFromFile("shaders/basic.vert", "shaders/basic.frag")
 
     objectToRender = { "VAO" : VAO, "VertexCount" : VertexSize, "ShaderProgram" : shaderProgram}
 
