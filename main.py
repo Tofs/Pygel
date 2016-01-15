@@ -5,9 +5,16 @@ import glfw
 from OpenGL.GL import *
 import ShaderManager as ShaderM
 
+
+def test(window, key, scancode, action, mods):
+
+    print "test"
+
+
+
 def main():
     Utils.init()
-    window = Utils.createWindow()
+    window = Utils.createWindow(test)
     # triangle position and color
 
     vertexPos, vertexColor, triangle = tmf.load("testData.tmf")
