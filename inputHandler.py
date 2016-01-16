@@ -31,4 +31,5 @@ def keyboardListner(window, key, scancode, action, mods):
     print "key: {0} scancode: {1} mods: {2} action: {3}".format(key, scancode,mods, action)
     dicKey  = (key, mods, action )
     if dicKey in handlers:
-        handlers[dicKey]()
+        for command in handlers[dicKey]:
+            command()

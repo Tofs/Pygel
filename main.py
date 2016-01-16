@@ -8,7 +8,8 @@ import inputHandler
 
 
 
-def troll():
+
+def KillProgram():
     print "trill"
 
 
@@ -19,8 +20,9 @@ def main():
 
     vertexPos, vertexColor, triangle = tmf.load("testData.tmf")
 
-    inputHandler.addEvent(troll, "Esc")
 
+    #define input
+    inputHandler.addEvent(KillProgram, "Esc")
     print vertexPos
     VAO, VertexSize = Utils.createVAO(vertexPos, vertexColor, 4)
     shaderProgram = ShaderM.compileShaderFromFile("shaders/basic.vert", "shaders/basic.frag")
