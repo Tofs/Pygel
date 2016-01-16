@@ -33,3 +33,5 @@ def keyboardListner(window, key, scancode, action, mods):
     if dicKey in handlers:
         for command in handlers[dicKey]:
             command()
+    else:
+        print dicKey

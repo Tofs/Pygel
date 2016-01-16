@@ -8,15 +8,16 @@ import inputHandler
 
 
 
-
 def KillProgram():
-    print "trill"
-
+    global window
+    glfw.set_window_should_close(window, GL_TRUE)
 
 def main():
+    global window
     Utils.init()
     window = Utils.createWindow(inputHandler.keyboardListner)
     # triangle position and color
+
 
     vertexPos, vertexColor, triangle = tmf.load("testData.tmf")
 
