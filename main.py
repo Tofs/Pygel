@@ -4,20 +4,22 @@ import OpenGLUtils as Utils
 import glfw
 from OpenGL.GL import *
 import ShaderManager as ShaderM
+import inputHandler
 
 
-def test(window, key, scancode, action, mods):
 
-    print "test"
-
+def troll():
+    print "trill"
 
 
 def main():
     Utils.init()
-    window = Utils.createWindow(test)
+    window = Utils.createWindow(inputHandler.keyboardListner)
     # triangle position and color
 
     vertexPos, vertexColor, triangle = tmf.load("testData.tmf")
+
+    inputHandler.addEvent(troll, "Esc")
 
     print vertexPos
     VAO, VertexSize = Utils.createVAO(vertexPos, vertexColor, 4)
