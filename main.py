@@ -1,4 +1,3 @@
-import sys
 import tmf
 import OpenGLUtils as Utils
 import glfw
