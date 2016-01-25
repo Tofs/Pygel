@@ -8,7 +8,7 @@ import logging.config
 
 
 def initLogger():
-    logging.config.fileConfig('log.conf')
+    logging.config.fileConfig('logging.conf')
 
 
 

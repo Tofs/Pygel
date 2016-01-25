@@ -24,6 +24,13 @@ def addEvent(function, key = None, mod = "None", action = "Pressed"):
         logging.error("Key '{0}' not found".format(key))
         return
 
+    if not mod in modMap:
+        logging.error("Mod '{0}' not found".format(mod))
+        return
+
+    if not action in actionMap:
+        loggin.error("Action '{0}' not found".format(action))
+
     keyCode = keyMap[key]
     modCode = modMap[mod]
     actionCode = actionMap[action]
@@ -42,4 +49,4 @@ def keyboardListner(window, key, scancode, action, mods):
         for command in handlers[dicKey]:
             command()
     else:
-        print dicKey
+        logging.debug("not bound: {0}".format(dicKey))
