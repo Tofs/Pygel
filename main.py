@@ -4,6 +4,11 @@ import glfw
 from OpenGL.GL import *
 import ShaderManager as ShaderM
 import inputHandler
+import logging.config
+
+
+def initLogger():
+    logging.config.fileConfig('log.conf')
 
 
 
@@ -11,18 +16,21 @@ def KillProgram():
     global window
     glfw.set_window_should_close(window, GL_TRUE)
 
+def Culling():
+    print "culling"
+
 def main():
     global window
+    initLogger()
     Utils.init()
     window = Utils.createWindow(inputHandler.keyboardListner)
     # triangle position and color
 
-
     vertexPos, vertexColor, triangle = tmf.load("testData.tmf")
-
 
     #define input
     inputHandler.addEvent(KillProgram, "Esc")
+    inputHandler.addEvent(Culling, "c")
     print vertexPos
     VAO, VertexSize = Utils.createVAO(vertexPos, vertexColor, 4)
     shaderProgram = ShaderM.compileShaderFromFile("shaders/basic.vert", "shaders/basic.frag")

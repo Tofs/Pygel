@@ -1,3 +1,7 @@
+import logging
+
+
+
 
 handlers = {}
 
@@ -16,6 +20,10 @@ modMap = {
 
 
 def addEvent(function, key = None, mod = "None", action = "Pressed"):
+    if not key in keyMap:
+        logging.error("Key '{0}' not found".format(key))
+        return
+
     keyCode = keyMap[key]
     modCode = modMap[mod]
     actionCode = actionMap[action]
