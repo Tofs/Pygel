@@ -17,7 +17,9 @@ def KillProgram():
     glfw.set_window_should_close(window, GL_TRUE)
 
 def Culling():
-    print "culling"
+    glEnable(GL_CULL_FACE)
+    glCullFace(GL_BACK)
+    glFrontFace(GL_CW) # GL_CW for clockwise and GL_CCW for counter clockwise
 
 def main():
     global window

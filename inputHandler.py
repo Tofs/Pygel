@@ -6,7 +6,8 @@ import logging
 handlers = {}
 
 keyMap = {
-    "Esc" : 256
+    "esc" : 256,
+    "c" : 67
 }
 
 actionMap = {
@@ -15,11 +16,14 @@ actionMap = {
 }
 
 modMap = {
-    "None" : 0
+    "none" : 0
 }
 
 
 def addEvent(function, key = None, mod = "None", action = "Pressed"):
+    key = key.lower()
+    mod = mod.lower()
+
     if not key in keyMap:
         logging.error("Key '{0}' not found".format(key))
         return
