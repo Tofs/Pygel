@@ -33,15 +33,17 @@ def addEvent(function, key = None, mod = "None", action = "Pressed"):
         return
 
     if not action in actionMap:
-        loggin.error("Action '{0}' not found".format(action))
+        logging.error("Action '{0}' not found".format(action))
 
     keyCode = keyMap[key]
     modCode = modMap[mod]
     actionCode = actionMap[action]
 
-
     key = (keyCode, modCode, actionCode)
 
+
+
+    logging.info("Bind Key: {0} to function: {1}".format(key, function))
     if not key in handlers:
         handlers[key] = []
     handlers[key].append(function)

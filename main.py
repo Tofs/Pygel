@@ -13,9 +13,23 @@ def KillProgram():
     global window
     glfw.set_window_should_close(window, GL_TRUE)
 
-def Culling():
-    return
-    glEnable(GL_CULL_FACE)
+
+culling = False
+def ToggleCulling(toState = None):
+    global culling
+    if toState is None:
+        culling = not culling
+    else:
+        culling = toState
+
+
+
+    if culling:
+        logging.info("Culling is enabled")
+        glEnable(GL_CULL_FACE)
+    else:
+        logging.info("Culling is disabled")
+        glDisable(GL_CULL_FACE)
     glCullFace(GL_BACK)
     glFrontFace(GL_CCW) # GL_CW for clockwise and GL_CCW for counter clockwise
 
@@ -30,7 +44,7 @@ def main():
     glEnable(GL_DEPTH_TEST)
     #define input
     inputHandler.addEvent(KillProgram, "Esc")
-    inputHandler.addEvent(Culling, "c")
+    inputHandler.addEvent(ToggleCulling, "c")
 
     print vertexPos
     VAO,pos, VertexSize, indexs = Utils.createVAO(vertexPos, vertexColor, triangle, 4)
