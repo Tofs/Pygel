@@ -7,6 +7,7 @@ import glfw
 import os
 import tmf
 
+import logging
 
 def createWindow(keyboardCallBackFunction = None):
     # Create a windowed mode window and its OpenGL context
@@ -22,6 +23,24 @@ def createWindow(keyboardCallBackFunction = None):
         # keyboard callback function
         glfw.set_key_callback(window, keyboardCallBackFunction)
     return window
+
+
+culling = False
+def ToggleCulling(toState = None):
+    global culling
+    if toState is None:
+        culling = not culling
+    else:
+        culling = toState
+
+    if culling:
+        logging.info("Culling is enabled")
+        glEnable(GL_CULL_FACE)
+    else:
+        logging.info("Culling is disabled")
+        glDisable(GL_CULL_FACE)
+    glCullFace(GL_BACK)
+    glFrontFace(GL_CCW) # GL_CW for clockwise and GL_CCW for counter clockwise
 
 def init():
     version_string = glfw.get_version_string();

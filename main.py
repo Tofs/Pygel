@@ -13,12 +13,6 @@ def KillProgram():
     global window
     glfw.set_window_should_close(window, GL_TRUE)
 
-def Culling():
-    return
-    glEnable(GL_CULL_FACE)
-    glCullFace(GL_BACK)
-    glFrontFace(GL_CCW) # GL_CW for clockwise and GL_CCW for counter clockwise
-
 def main():
     global window
     initLogger()
@@ -26,11 +20,12 @@ def main():
     window = Utils.createWindow(inputHandler.keyboardListner)
     # triangle position and color
 
+    Utils.ToggleCulling(True)
     vertexPos, vertexColor, triangle = tmf.load("testData.tmf")
     glEnable(GL_DEPTH_TEST)
     #define input
     inputHandler.addEvent(KillProgram, "Esc")
-    inputHandler.addEvent(Culling, "c")
+    inputHandler.addEvent(Utils.ToggleCulling, "c")
 
     print vertexPos
     VAO,pos, VertexSize, indexs = Utils.createVAO(vertexPos, vertexColor, triangle, 4)
