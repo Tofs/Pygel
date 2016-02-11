@@ -43,13 +43,13 @@ def mainLoop(mainLoopObject, window):
     pos = mainLoopObject["VertexBuffer"]
     shaderProgram = mainLoopObject["ShaderProgram"]
 
+    glEnableVertexAttribArray(0)
     # Loop until the user closes the window
     while not glfw.window_should_close(window):
         glClearColor(0.1, 0.1, 0.5, 1)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
         glUseProgram(shaderProgram)
-        glEnableVertexAttribArray(0)
 
         glBindVertexArray(VAO)
         glBindBuffer(GL_ARRAY_BUFFER, pos)
