@@ -53,7 +53,7 @@ def mainLoop(mainLoopObject, window):
         transMatrix = glGetUniformLocation(shaderProgram, "transMatrix")
         glUseProgram(shaderProgram)
 
-        glUniformMatrix4fv(transMatrix, 1, GL_FALSE, Matrix.identity())
+        glUniformMatrix4fv(transMatrix, 1, GL_FALSE, Matrix.translate(-0.5 , -0.5 , 0))
 
 
         glBindVertexArray(VAO)
