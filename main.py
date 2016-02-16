@@ -38,7 +38,7 @@ def main():
     glfw.terminate()
 
 
-# this is a comments
+# this is a comments ;lsdkfjgjl;sdkjfg;ldfkj
 def mainLoop(mainLoopObject, window):
     VAO = mainLoopObject["VAO"]
     i = mainLoopObject["Indexs"]
