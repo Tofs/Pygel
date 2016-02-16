@@ -37,6 +37,8 @@ def main():
     mainLoop(objectToRender,window)
     glfw.terminate()
 
+
+# this is a comments
 def mainLoop(mainLoopObject, window):
     VAO = mainLoopObject["VAO"]
     i = mainLoopObject["Indexs"]
